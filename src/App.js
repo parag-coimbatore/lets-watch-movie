@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Axios from "axios"; 
 import styled from "styled-components";
+import MovieInfoComponent from "./Components/MovieInfo";
 import MovieComponent from "./Components/MovieComponent";
 
 
@@ -73,6 +74,7 @@ function App() {
 
   const [searchQuery, updateSearchQuery] = useState("");
   const [timeoutId, updateTimeoutId] = useState();
+  const [selectedMovie, onMovieSelect] = useState();
   const [movieList, updateMovieList] = useState([]);
 
   const fetchData = async (searchString) => {
@@ -100,12 +102,13 @@ function App() {
         </AppName>
         <SearchBox> 
           <SearchIcon src="data:image/png;base64,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"/>
-          <SearchInput  placeholder="Search Movie" value={searchQuery} onChange={onTextChange}/>
+          <SearchInput  placeholder="Search Movie" value={searchQuery} onChange={onTextChange} onMovieSelect={onMovieSelect}/>
         </SearchBox>
       </Header>
+      {selectedMovie && <MovieInfoComponent selectedMovie={selectedMovie} onMovieSelect={onMovieSelect}/>}
       <MovieListContainer>
         {movieList ?.length 
-        ? movieList.map((movie, index) => <MovieComponent  key={index}  movie={movie}/>) : "No movies Search"}        
+        ? movieList.map((movie, index) => <MovieComponent  key={index}  movie={movie} onMovieSelect={onMovieSelect}/>) : "No movies Search"}        
       </MovieListContainer>
       
     </Container>

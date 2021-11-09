@@ -43,7 +43,8 @@ const MovieInfo = styled.span`
 const MovieComponent = (props) => {
     const { Title, Year, imdbID, Type, Poster } = props.movie;
 
-    return<MovieContainer>
+    return<MovieContainer
+     onClick={() => props.onMovieSelect(imdbID)}>
         <CoverImage src={Poster}/>
         <MovieName>{Title}</MovieName>
         <InfoColumn>
