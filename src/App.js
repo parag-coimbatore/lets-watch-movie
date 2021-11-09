@@ -73,12 +73,14 @@ function App() {
 
   const [searchQuery, updateSearchQuery] = useState("");
   const [timeoutId, updateTimeoutId] = useState();
+  const [movieList, updateMovieList] = useState([]);
 
   const fetchData = async (searchString) => {
     const response = await Axios.get(
       `https://www.omdbapi.com/?s=${searchString}&apikey=${API_KEY}`,
     );
    console.log(response)
+   updateMovieList(response.data.Search);
   };
 
   const onTextChange = (e) => {
@@ -102,10 +104,8 @@ function App() {
         </SearchBox>
       </Header>
       <MovieListContainer>
-        <MovieComponent/>
-        <MovieComponent/>
-        <MovieComponent/>
-        <MovieComponent/>
+        {movieList ?.length 
+        ? movieList.map((movie, index) => <MovieComponent  key={index}  movie={movie}/>) : "No movies Search"}        
       </MovieListContainer>
       
     </Container>

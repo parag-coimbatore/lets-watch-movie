@@ -41,12 +41,14 @@ const MovieInfo = styled.span`
 `;
 
 const MovieComponent = (props) => {
+    const { Title, Year, imdbID, Type, Poster } = props.movie;
+
     return<MovieContainer>
-        <CoverImage src="https://tfipost.com/wp-content/uploads/2019/07/amit-shah_8-640x375.jpg"/>
-        <MovieName>Amit shah the indian chanakya. Call to destroy govt</MovieName>
+        <CoverImage src={Poster}/>
+        <MovieName>{Title}</MovieName>
         <InfoColumn>
-            <MovieInfo>Year:  2012</MovieInfo>
-            <MovieInfo>Type:  Movie</MovieInfo>
+            <MovieInfo>{Year}</MovieInfo>
+            <MovieInfo>{Type}</MovieInfo>
          </InfoColumn>
     </MovieContainer>
     
